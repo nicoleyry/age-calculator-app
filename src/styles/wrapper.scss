@@ -1,0 +1,15 @@
+@use './variables' as var;
+
+.Wrapper {
+	background-color: var.$color-white;
+	width: auto;
+	max-width: 500px;
+	height: auto;
+	max-height: 500px;
+	border-radius: 20px 20px 100px 20px;
+	padding: 30px;
+
+	// temp
+	width: 450px;
+	height: 400px;
+}
