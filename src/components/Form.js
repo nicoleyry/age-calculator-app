@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import '../styles/form.scss';
-import moment from 'moment';
 
-
-export default function Form({setSubmitData, setIsSubmitted}) {
+export default function Form({moment, setSubmitData, setIsSubmitted}) {
 	const [formData, setFormData] = useState({day: "",month: "",year: ""});
 	const [error, setError] = useState(false);
 	
@@ -18,9 +16,14 @@ export default function Form({setSubmitData, setIsSubmitted}) {
 		e.preventDefault();
 		let dateString = `${formData.year}-${formData.month}-${formData.day}`;
 		let dateIsValid = moment(dateString, ["YYYY-MM-DD", "YYYY-M-D"], true).isValid();
-		dateIsValid ? setSubmitData((prev) => ({...prev, ...formData})) : setError(true);
 
-		setIsSubmitted(true);
+		if(dateIsValid) {
+			setSubmitData((prev) => ({...prev, ...formData}));
+			setIsSubmitted(true);
+		} else {
+			setError(true);
+		}
+
 	};
 
 	return (
