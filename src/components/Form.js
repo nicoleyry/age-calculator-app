@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/form.scss';
 
 export default function Form({moment, setSubmitData, setIsSubmitted}) {
@@ -10,39 +10,38 @@ export default function Form({moment, setSubmitData, setIsSubmitted}) {
 		const { name, value } = e.target;
 		setFormData((prev) => ({ ...prev, [name]: value }));
 
+		// reset status
 		setIsSubmitted(false);
 		setError({hasError: false, empty: false, valid: false, future: false});
 		setBeforeSubmitCheck(false);
 	};
 
+	let dateString = `${formData.year} ${formData.month} ${formData.day}`;
+	let dateIsValid = (moment(dateString, ["YYYY MM DD", "YYYY M D"], true).isValid());
+	let dateIsBefore = moment(dateString).isBefore();
+	let dateIsNotEmpty = (dateString.trim().length !== 0);
+	let inputIsEmpty = (formData.year.trim().length === 0 || formData.month.trim().length === 0 || formData.day.trim().length === 0);
+
+	useEffect(() => {
+		if(beforeSubmitCheck && !inputIsEmpty) {
+			if(!dateIsValid) {
+				setError({...error, hasError: true, valid: true});
+			} else if(!dateIsBefore) {
+				setError({...error, hasError: true, future: true});
+			} else if(!dateIsNotEmpty) {
+				setError({...error, hasError: true, empty: true});
+			} else {
+				setSubmitData((prev) => ({...prev, ...formData}));
+				setIsSubmitted(true);
+			}
+		} else {
+			setError({hasError: false, empty: false, valid: false, future: false});
+		}
+	}, [beforeSubmitCheck, dateIsValid, dateIsBefore, dateIsNotEmpty, setSubmitData]);
+
 	let submitHandler = (e) => {
 		e.preventDefault();
 		setBeforeSubmitCheck(true);
-
-		let dateString = `${formData.year} ${formData.month} ${formData.day}`;
-		let dateIsValid = (moment(dateString, ["YYYY MM DD", "YYYY M D"], true).isValid());
-		let dateIsBefore = moment(dateString).isBefore();
-		let dateIsNotEmpty = (dateString.trim().length !== 0);
-		let inputIsEmpty = (formData.year.trim().length === 0 || formData.month.trim().length === 0 || formData.day.trim().length === 0);
-
-		if(dateIsNotEmpty && dateIsValid && dateIsBefore) {
-			setSubmitData((prev) => ({...prev, ...formData}));
-			setIsSubmitted(true);
-		} else if(!dateIsNotEmpty) {
-			setError({...error, hasError: true, empty: true});
-		} else if(dateIsNotEmpty && dateIsValid && !dateIsBefore) {
-			if(!inputIsEmpty) {
-				setError({...error, hasError: true, future: true});
-			}
-		} else if(dateIsNotEmpty && !dateIsValid && dateIsBefore) {
-			if(!inputIsEmpty) {
-				setError({...error, hasError: true, valid: true});
-			}
-		} else if(dateIsNotEmpty && !dateIsValid && !dateIsBefore) {
-			if(!inputIsEmpty) {
-				setError({...error, hasError: true, valid: true, future: true});
-			}
-		}
 	};
 
 	return (
@@ -100,7 +99,9 @@ export default function Form({moment, setSubmitData, setIsSubmitted}) {
 					</p>
 				</fieldset>
 				
-				<button className='submit' type="submit">Submit</button>
+				<fieldset className='submit'>
+					<button type="submit">Submit</button>
+				</fieldset>
 			</form>
 		</div>
 	)
