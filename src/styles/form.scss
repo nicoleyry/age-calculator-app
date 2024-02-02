@@ -1,5 +1,66 @@
 @use './variables' as var;
+@use "./mixins" as mix;
 
 .Form {
-	
+	@include mix.input-placeholder(var.$color-smokey-grey);
+
+	& form {
+		display: grid;
+		grid-template-areas:
+			"day    month  year"
+			"submit submit submit";
+			
+			& fieldset {
+				border: none;
+				display: inline-block;
+				margin-right: 20px;
+		
+				& .day {
+					grid-area: day;
+				}
+				& .month {
+					grid-area: month;
+				}
+				& .year {
+					grid-area: year;
+				}
+				& .submit {
+					grid-area: submit;
+				}
+		
+				& .label-text {
+					text-transform: uppercase;
+					letter-spacing: .2em;
+					color: var.$color-smokey-grey;
+					font-weight: 700;
+					font-size: 14px;
+		
+					&.error {
+						color: var.$color-light-red;
+					}
+				}
+		
+				& input {
+					width: 120px;
+					border-radius: 5px;
+					font-size: 32px;
+					padding: 5px 10px;
+					border: 1px solid var.$color-light-grey;
+		
+					&.error {
+						border-color: var.$color-light-red;;
+					}
+				}
+		
+				& .error-text {
+					font-size: 12px;
+					color: var.$color-light-red;
+					font-style: italic;
+					font-weight: 400;
+					margin-top: 5px;
+					height: 18px;
+				}
+			}
+	}
+
 }
