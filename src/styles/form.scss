@@ -13,13 +13,22 @@
 			& fieldset {
 				border: none;
 				display: inline-block;
-				margin-right: 20px;
 		
 				&.day {
 					grid-area: day;
+					margin-right: 20px;
+
+					@media screen and (max-width: var.$breakpoint-m) {
+						margin-right: 10px;
+					}
 				}
 				&.month {
 					grid-area: month;
+					margin-right: 20px;
+					
+					@media screen and (max-width: var.$breakpoint-m) {
+						margin-right: 10px;
+					}
 				}
 				&.year {
 					grid-area: year;
@@ -28,6 +37,13 @@
 					grid-area: submit;
 					display: flex;
 					align-items: center;
+					margin: 20px 0;
+
+					@media screen and (max-width: var.$breakpoint-m) {
+						display: grid;
+						grid-template-areas: 'container';
+						align-items: center;
+					}
 
 					& .submit-line {
 						display: block;
@@ -37,6 +53,10 @@
 						margin: 1em 0;
 						padding: 0;
 						flex-grow: 1;
+
+						@media screen and (max-width: var.$breakpoint-m) {
+							grid-area: container;
+						}
 					}
 
 					& .submit-wrapper {
@@ -48,6 +68,11 @@
 						justify-content: center;
 						align-items: center;
 						cursor: pointer;
+
+						@media screen and (max-width: var.$breakpoint-m) {
+							grid-area: container;
+							justify-self: center;
+						}
 
 						&:hover {
 							background-color: var.$color-off-black;
@@ -62,6 +87,14 @@
 					color: var.$color-smokey-grey;
 					font-weight: 700;
 					font-size: 14px;
+					
+					@media screen and (max-width: var.$breakpoint-m) {
+						font-size: 12px;
+					}
+
+					@media screen and (max-width: var.$breakpoint-s) {
+						display: inline-block;
+					}
 		
 					&.error {
 						color: var.$color-light-red;
@@ -74,6 +107,16 @@
 					font-size: 32px;
 					padding: 5px 10px;
 					border: 1px solid var.$color-light-grey;
+
+					@media screen and (max-width: var.$breakpoint-m) {
+						width: 100px;
+						font-size: 20px;
+					}
+
+					@media screen and (max-width: var.$breakpoint-s) {
+						width: 70px;
+						font-size: 16px;
+					}					
 		
 					&.error {
 						border-color: var.$color-light-red;;
@@ -87,6 +130,10 @@
 					font-weight: 400;
 					margin-top: 5px;
 					height: 18px;
+
+					@media screen and (max-width: var.$breakpoint-m) {
+						display: inline-block;
+					}
 				}
 			}
 	}
