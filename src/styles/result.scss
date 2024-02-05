@@ -1,5 +1,14 @@
 @use './variables' as var;
 
 .Result {
-	
+	& h1 {
+		font-size: 60px;
+		font-weight: 800;
+		font-style: italic;
+		line-height: 1.2em;
+
+		& .remains {
+			color: var.$color-purple;
+		}
+	}
 }

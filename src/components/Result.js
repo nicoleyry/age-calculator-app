@@ -29,9 +29,9 @@ export default function Result({moment, submitData, isSubmitted}) {
 
 	return (
 		<div className="Result">
-			<h1>Day: {result.day}</h1>
-			<h1>Month: {result.month}</h1>
-			<h1>Year: {result.year}</h1>
+			<h1><span className="remains">{result.year}</span> years</h1>
+			<h1><span className="remains">{result.month} </span>months</h1>
+			<h1><span className="remains">{result.day}</span> days</h1>
 		</div>
 	)
 };
