@@ -26,6 +26,34 @@
 				}
 				&.submit {
 					grid-area: submit;
+					display: flex;
+					align-items: center;
+
+					& .submit-line {
+						display: block;
+						height: 1px;
+						border: 0;
+						border-top: 1px solid #ccc;
+						margin: 1em 0;
+						padding: 0;
+						flex-grow: 1;
+					}
+
+					& .submit-wrapper {
+						background-color: var.$color-purple;
+						border-radius: 50%;
+						width: 60px;
+						height: 60px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						cursor: pointer;
+
+						&:hover {
+							background-color: var.$color-off-black;
+							transform: translateY(3px);
+						}
+					}
 				}
 		
 				& .label-text {
@@ -40,7 +68,7 @@
 					}
 				}
 		
-				& input {
+				& input:not([type='submit']) {
 					width: 120px;
 					border-radius: 5px;
 					font-size: 32px;
