@@ -7,4 +7,22 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	& .attribution {
+		position: absolute;
+		transform: translateX(-50%);
+		left: 50%;
+		bottom: 5px;
+		font-size: 11px;
+		text-align: center;
+		z-index: 1;
+	}
+	& .attribution a {
+		color: hsl(259, 100%, 65%);
+		text-decoration: none;
+
+		&:hover {
+			color: hsl(259, 80%, 75%);
+		}
+	}
 }
